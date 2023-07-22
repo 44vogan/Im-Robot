@@ -1,5 +1,5 @@
 # Im-Robot
-GUI Automation tool
+A codeless automation / testing tool .
 ### Dependency
 
 1. webview
