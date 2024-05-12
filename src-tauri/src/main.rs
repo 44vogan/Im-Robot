@@ -3,11 +3,18 @@
 
 use enigo::*;
 use opencv::prelude::MatTraitConst;
+use tauri::Manager;
 // import the Screen type
 use opencv::prelude::Mat;
 use opencv::{core, imgcodecs, imgproc};
 use screenshots::Screen;
 use std::error::Error;
+
+#[derive(Clone, serde::Serialize)]
+struct Payload {
+    args: Vec<String>,
+    cwd: String,
+}
 
 fn screenshot_buffer() -> Result<Vec<u8>, Box<dyn Error>> {
     // get all the screens
@@ -345,6 +352,12 @@ fn special_key_up(key: &str) -> Result<String, String> {
 
 fn main() {
     tauri::Builder::default()
+        .plugin(tauri_plugin_single_instance::init(|app, argv, cwd| {
+            println!("{}, {argv:?}, {cwd}", app.package_info().name);
+
+            app.emit_all("single-instance", Payload { args: argv, cwd })
+                .unwrap();
+        }))
         .invoke_handler(tauri::generate_handler![
             find_image,
             get_cursor_position,

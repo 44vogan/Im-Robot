@@ -1,0 +1,77 @@
+{
+    "build": {
+        "beforeDevCommand": "npm run dev",
+        "beforeBuildCommand": "npm run build",
+        "devPath": "http://localhost:1420",
+        "distDir": "../dist",
+        "withGlobalTauri": false
+    },
+    "package": {
+        "productName": "Im Robot",
+        "version": "0.1.1"
+    },
+    "tauri": {
+        "allowlist": {
+            "all": false,
+            "protocol": {
+                "all": true,
+                "asset": true,
+                "assetScope": [
+                    "**"
+                ]
+            },
+            "shell": {
+                "all": false,
+                "open": true
+            },
+            "fs": {
+                "all": true,
+                "scope": [
+                    "**",
+                    "$APP/databases/*",
+                    "$RESOURCE/*"
+                ]
+            },
+            "path": {
+                "all": true
+            },
+            "globalShortcut": {
+                "all": true
+            }
+        },
+        "bundle": {
+            "active": true,
+            "targets": "all",
+            "identifier": "com.44vogan.imrobot",
+            "icon": [
+                "icons/icon.ico"
+            ],
+            "resources": [
+                "../src/testImg/test.png"
+            ]
+        },
+        "security": {
+            "csp": "default-src 'self'; img-src 'self' asset: https://asset.localhost"
+        },
+        "updater": {
+            "active": true,
+            "windows": {
+                "installMode": "passive"
+            },
+            "endpoints": [
+                "https://example.com/im-robot-updater.json"
+            ],
+            "dialog": true,
+            "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDE5NkZGMUUyNjk4MzBBMTUKUldRVkNvTnA0dkZ2R2EwMnJaUnlsWm1mR3RxeHI0d21VV3VVV0kvTzQzSUxIc3lSYllocE4zMVEK"
+        },
+        "windows": [
+            {
+                "fullscreen": false,
+                "resizable": true,
+                "title": "Im Robot",
+                "width": 1600,
+                "height": 900
+            }
+        ]
+    }
+}
